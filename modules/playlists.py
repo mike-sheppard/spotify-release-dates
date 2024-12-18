@@ -33,9 +33,7 @@ def pretty_print_track_info(all_tracks, as_playlist, release_year):
 
     all_track_names = []
     for i in all_tracks:
-        # print first track
         if (i['track']['is_local'] != True):
-            # print(i, '\n')
             all_track_names.append([
                 i['track']['artists'][0]['name'],
                 i['track']['name'],
@@ -48,8 +46,6 @@ def pretty_print_track_info(all_tracks, as_playlist, release_year):
                 datetime.fromisoformat(i['added_at']).strftime('%H:%M'),
                 datetime.fromisoformat(i['added_at']),
             ])
-        # else:
-            # print(i['track']['name'], 'LOCAL FILE')
 
     pd.set_option('display.max_rows', None)
     df = pd.DataFrame(all_track_names, columns=[
@@ -65,9 +61,11 @@ def pretty_print_track_info(all_tracks, as_playlist, release_year):
         'Added (ISO)',
     ], index=None).sort_values(by='Added (ISO)')
 
+    # filter all tracks by release year
     if release_year:
         df = df[df['Released'] == release_year]
 
+    # reset index after filtering + sorting
     df.reset_index(drop=True, inplace=True)
 
     if as_playlist:
@@ -89,4 +87,5 @@ def pretty_print_track_info(all_tracks, as_playlist, release_year):
             'Added (ISO)',
         ], inplace=True)
 
+    # print the dataframe without index if viewing as_playlist
     print(df.to_string(index = not as_playlist))
