@@ -11,10 +11,13 @@ Quick and dirty way to loop over multiple playlists and extract release dates + 
   - `python get-release-dates.py --playlist` to generate a playlist you can copy & paste into Spotify
 
 ### Preview
-
 ![Preview playlist CLI output](./docs/preview-tracks.png)
 
 ![Preview playlist CLI output](./docs/preview-playlist.png)
+
+## API/Docs
+- [Spotipy](https://spotipy.readthedocs.io/en/2.22.1/#examples)
+- [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
 
 ## Credits
 Nabbed and mutated from this super helpful [Stack Overflow post](https://stackoverflow.com/a/77714867)
