@@ -6,9 +6,9 @@ Quick and dirty way to loop over multiple playlists and extract release dates + 
 1. Create a Spotify Developer account and create a new app to get your client ID and client secret - [quick youtube guide here](https://www.youtube.com/watch?v=kaBVN8uP358)
 1. Set your Spotify username, playlist ID's, client ID and secret in `config.yml` (see + copy `config.example.yml`)
 1. Run the script:
-  - `python get-release-dates.py` to display all tracks in the playlists with their release date
-  - `--playlist` generate a playlist you can copy & paste directly into Spotify
-  - `--year=1972` filter by a specific year
+    - `python get-release-dates.py` show all tracks in playlists with release dates
+    - `--playlist` generate a playlist you can copy & paste directly into Spotify
+    - `--year=1972` filter by track/album release year
 
 ### CLI Output/Preview
 ![Preview playlist CLI output](./docs/preview-tracks.png)
