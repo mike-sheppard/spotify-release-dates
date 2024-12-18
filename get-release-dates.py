@@ -1,15 +1,29 @@
+# Based off: https://stackoverflow.com/questions/40737168/get-track-release-date-in-spotify
+
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
-from dotenv import load_dotenv, dotenv_values
+import yaml
 import click
 from modules.playlists import get_playlist_tracks, pretty_print_track_info
 
-# TODO: add this to a config file/CLI option
-all_playlists = [
-    'ABC',
-    'XYZ',
-]
+config = yaml.safe_load(open("config.yml"))
+
+def startup_checks():
+    # check config file exists
+    if not os.path.exists('config.yml'):
+        print('No config.yml file found')
+        exit()
+
+    # exit if playlist is empty
+    if not config['playlists'] or config['playlists'] == []:
+        print('No playlists found in config.yml')
+        exit()
+
+    # exit if no auth details
+    if not config['client_id'] or not config['client_secret']:
+        print('No client_id or client_secret found in config.yml')
+        exit()
 
 @click.command()
 @click.option("--playlist", is_flag=True)
@@ -21,18 +35,17 @@ def get_release_dates(playlist, year):
     print('Filter by release year:', release_year)
 
     # load .env file
-    config = dotenv_values(".env")
-    load_dotenv()
-    auth_manager = SpotifyClientCredentials(client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('CLIENT_SECRET'))
+    auth_manager = SpotifyClientCredentials(client_id=config['client_id'], client_secret=config['client_secret'])
     sp = spotipy.Spotify(client_credentials_manager=auth_manager)
 
     # get all tracks from playlist
     all_tracks = []
-    for i in all_playlists:
-        all_tracks += get_playlist_tracks(sp, os.getenv('USERNAME'), i)
+    for i in config['playlists']:
+        all_tracks += get_playlist_tracks(sp, config['username'], i)
 
     # print + export all tracks
     pretty_print_track_info(all_tracks, as_playlist, release_year)
 
 if __name__ == '__main__':
+    startup_checks()
     get_release_dates()

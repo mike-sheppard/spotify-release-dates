@@ -1,0 +1,12 @@
+# Your Spotify username
+username: 'someone'
+
+# Easiest way to get the playlist ID is to grab from copy/share link
+playlists:
+    - '25HKkAZz1rpzQXkWSLpWZL'
+    - 'EReUJuYgQXOBGrMgBF3Kbw'
+
+# Create an app in the Spotify dev dashboard: https://developer.spotify.com/
+# quick youtube guide: https://www.youtube.com/watch?v=kaBVN8uP358
+client_id: ''
+client_secret: ''
